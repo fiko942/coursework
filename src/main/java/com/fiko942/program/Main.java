@@ -6,6 +6,13 @@ import java.time.Period;
 
 public class Main {
 
+    /**
+     * Get the customer details from the scanner input.
+     *
+     * @param  customer   the customer object to store the details
+     * @param  scanner    the scanner object to read the input
+     * @return            the customer details along with the period
+     */
     private static GetCustomerDetail getCustomereDetail(Customer customer, Scanner scanner) {
         System.out.println("Masukkan nama Anda: ");
         customer.name = scanner.nextLine();
