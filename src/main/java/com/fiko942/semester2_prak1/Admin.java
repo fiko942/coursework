@@ -39,11 +39,7 @@ public class Admin {
         target2Find.password = password;
         return admins.contains(target2Find);*/
 
-        for (AdminDetail admin : admins) {
-            if (admin.username.equals(username) && admin.password.equals(password)) {
-                return true;
-            }
-        }
-        return false;
+        return admins.stream()
+                .anyMatch(admin -> admin.username.equals(username) && admin.password.equals(password));
     }
 }
