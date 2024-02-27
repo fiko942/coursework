@@ -16,18 +16,27 @@ public class Main {
 
     public static void main(String[] args) {
         Student student = new Student();
+        Admin admin = new Admin();
+        admin.init();
 
         while(true) {
             System.out.println("===== Fiko's Library =====");
             printMenu();
             String choice = new Scanner(System.in).nextLine();
             switch(choice) {
-                case "1":
-                    // Login as student condition
+                case "1": // Login as student condition
                     System.out.print("Enter your NIM: ");
                     String nim = new Scanner(System.in).nextLine();
-                    boolean authenticated = student.login(nim);
-                    System.out.println(authenticated ? "Successfull login as a Student!" : "Nim isn't registered!");
+                    boolean studentAuthenticated = student.login(nim);
+                    System.out.println(studentAuthenticated ? "Successfull login as a Student!" : "Nim isn't registered!");
+                    break;
+                case "2" : // Login as a admin
+                    System.out.print("Enter your username: ");
+                    String username = new Scanner(System.in).nextLine();
+                    System.out.print("Enter your password: ");
+                    String password = new Scanner(System.in).nextLine();
+                    boolean adminAuthenticated = admin.login(username, password);
+                    System.out.println(adminAuthenticated ? "Successfull login as a admin!" : "Admin user not found!");
                     break;
                 default :
                     System.out.println("Memilih default");
