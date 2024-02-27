@@ -15,15 +15,26 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        Student student = new Student();
+
         while(true) {
             System.out.println("===== Fiko's Library =====");
             printMenu();
             String choice = new Scanner(System.in).nextLine();
             switch(choice) {
                 case "1":
-                    System.out.println("Memilih 1");
+                    // Login as student condition
+                    System.out.print("Enter your NIM: ");
+                    String nim = new Scanner(System.in).nextLine();
+                    boolean authenticated = student.login(nim);
+                    System.out.println(authenticated ? "Successfull login as a Student!" : "Nim isn't registered!");
+                    break;
                 default :
                     System.out.println("Memilih default");
+            }
+            if (!choice.equals("3")) {
+                System.out.println("Press any key to continue ...");
+                new Scanner(System.in).nextLine();
             }
         }
     }
