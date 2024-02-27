@@ -38,6 +38,8 @@ public class Main {
                     boolean adminAuthenticated = admin.login(username, password);
                     System.out.println(adminAuthenticated ? "Successfull login as a admin!" : "Admin user not found!");
                     break;
+                case "3" :
+                    System.exit(0);
                 default :
                     System.out.println("Memilih default");
             }
