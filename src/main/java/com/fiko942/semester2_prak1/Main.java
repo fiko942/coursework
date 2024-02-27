@@ -1,5 +1,8 @@
 package com.fiko942.semester2_prak1;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -14,7 +17,15 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+
+    /**
+     * The main function for the Fiko's Library program.
+     *
+     * @param  args	command line arguments
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static <List> void main(String[] args) throws IOException, InterruptedException {
         Student student = new Student();
         Admin admin = new Admin();
         admin.init();
@@ -40,10 +51,10 @@ public class Main {
                     break;
                 case "3" :
                     System.exit(0);
-                default :
-                    System.out.println("Memilih default");
             }
-            if (!choice.equals("3")) {
+
+            ArrayList<String> breakedChoices = new ArrayList<String>(Arrays.asList("1", "2"));
+            if (breakedChoices.contains(choice)) {
                 System.out.println("Press any key to continue ...");
                 new Scanner(System.in).nextLine();
             }
