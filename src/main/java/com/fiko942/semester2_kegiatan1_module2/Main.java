@@ -53,6 +53,7 @@ public class Main {
      *
      * @return No return value
      */
+    @SuppressWarnings("resource")
     private static void menuAdmin() {
         ArrayList<String> menus = new ArrayList<>(List.of(new String[] {
                 "Add Student",
@@ -63,16 +64,15 @@ public class Main {
             int i = menus.indexOf(menu) + 1;
             System.out.printf("%d. %s\n", i, menu);
         });
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Choose option (1-3): ");
-            int choice = scanner.nextInt();
-            if (choice == 1) { // Add students
-                Admin.addStudent(students);
-            } else if (choice == 2) { // Display students
-                Admin.displayStudents(students);
-            } else if (choice == 3) { // Logout
-                return;
-            }
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Choose option (1-3): ");
+        int choice = scanner.nextInt();
+        if (choice == 1) { // Add students
+            Admin.addStudent(students);
+        } else if (choice == 2) { // Display students
+            Admin.displayStudents(students);
+        } else if (choice == 3) { // Logout
+            return;
         }
         menuAdmin();
     }
@@ -95,7 +95,63 @@ public class Main {
             System.out.print("Login failed are you sure to try again? (y/n): ");
             return scanner.nextLine().toLowerCase().equals("y") ? adminLogin() : false;
         }
+    }
 
+    /**
+     * A method to input a NIM from the user and perform validation checks.
+     *
+     * @return the NIM entered by the user, or -1 if user cancels
+     */
+    @SuppressWarnings("resource")
+    private static long inputNim() {
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("NIM (Enter 99 for cancel): ");
+            long nim = scanner.nextLong();
+            if (nim == 99)
+                return -1;
+            if (Long.toString(nim).length() != 15) {
+                System.out.println("Invalid nim format");
+                continue;
+            }
+            return nim;
+        }
+    }
+
+    /**
+     * A method that displays a menu for the student to interact with,
+     * including options to view borrowed books, borrow a book, or logout.
+     *
+     * @param None
+     * @return None
+     */
+    @SuppressWarnings("resource")
+    private static void menuStudent() {
+        ArrayList<String> menus = new ArrayList<String>(
+                List.of("Borrowed Book", "Borrow a Book", "Logout"));
+        menus.forEach(menu -> {
+            int i = menus.indexOf(menu) + 1;
+            System.out.printf("%d. %s\n", i, menu);
+        });
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+
+        if (choice == 1) {
+            System.out.println("List of borrowed books:");
+        }
+
+        menuStudent();
+    }
+
+    /**
+     * Check if the given nim exists in the list of students.
+     *
+     * @param nim the nim to check
+     * @return true if the nim exists, false otherwise
+     */
+    private static boolean checkNim(long nim) {
+        return students.stream().anyMatch(s -> s.nim == nim);
     }
 
     public static void main(String[] args) {
@@ -108,8 +164,16 @@ public class Main {
                         menuAdmin();
                     }
                     break;
-                // case 2:
-                // menuStudent();
+                case 2:
+                    long nim = inputNim();
+                    if (nim > 0) {
+                        if (checkNim(nim)) {
+                            menuStudent();
+                        } else {
+                            System.out.println("NIM is not registered officially in our service");
+                        }
+                    }
+                    break;
             }
         }
     }
