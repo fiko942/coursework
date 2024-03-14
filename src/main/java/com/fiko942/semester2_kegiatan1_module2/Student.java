@@ -4,6 +4,7 @@ public class Student {
     String name;
     String faculty;
     String programStudy;
+    long nim;
 
     public static void logout() {
 

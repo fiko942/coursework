@@ -1,6 +1,6 @@
 package com.fiko942.semester2_kegiatan1_module2;
 
-import java.lang.reflect.Array;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -49,12 +49,39 @@ public class Main {
         }
     }
 
+    /**
+     * A method to display the admin menu options, prompt the user for a choice, and handle the choice accordingly.
+     *
+     * @return             No return value
+     */
+    private static void menuAdmin() {
+        ArrayList<String> menus = new ArrayList<>(List.of(new String[]{
+            "Add Student",
+            "Display Registered Students",
+            "Logout"
+        }));
+        menus.forEach(menu -> {
+            int i = menus.indexOf(menu) + 1;
+            System.out.printf("%d. %s\n", i, menu);
+        });
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Choose option (1-3): ");
+        int choice = scanner.nextInt();
+        if (choice == 1) {
+            // Add student
+
+        }
+    }
 
     public static void main(String[] args) {
         initBook();
         while(true) {
             int mainMenuChoiced = Menu();
-            System.out.println("mainMenuChoiced: " + mainMenuChoiced);
+            switch(mainMenuChoiced) {
+                case 1:
+                    menuAdmin();
+                    break;
+            }
         }
     }
 }
