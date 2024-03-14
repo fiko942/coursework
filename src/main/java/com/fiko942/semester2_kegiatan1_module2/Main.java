@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Main {
     private static ArrayList<Book> books = new ArrayList<>();
     private static ArrayList<Student> students = new ArrayList<Student>();
+    private static long authenticatedStudentNIM = 0;
 
     /**
      * Initializes the list of books with predefined book entries.
@@ -125,8 +126,10 @@ public class Main {
      * @param None
      * @return None
      */
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "resource", "static-access" })
     private static void menuStudent() {
+        int studentI = searchStudentNim(authenticatedStudentNIM);
+        System.out.printf("=== Student Menu (%s) ===\n", students.get(studentI).name);
         ArrayList<String> menus = new ArrayList<String>(
                 List.of("Borrowed Book", "Borrow a Book", "Logout"));
         menus.forEach(menu -> {
@@ -139,9 +142,52 @@ public class Main {
 
         if (choice == 1) {
             System.out.println("List of borrowed books:");
+            int i = searchStudentNim(authenticatedStudentNIM);
+            if (i < 0) {
+                System.out.println("Error user not found!");
+                return;
+            }
+
+            students.get(i).displayBorrowedBooks();
+        } else if (choice == 2) {
+            System.out.println("List of available books:");
+
+            books.forEach(book -> {
+                System.out.printf("%d. %s | %s | %s\n", book.id, book.title, book.author,
+                        Integer.toString(book.stock));
+            });
+            System.out.println("Enter book id to borrow (enter 99 for cancel):");
+            int choicedBook = scanner.nextInt();
+            if (choicedBook != 99) {
+                // Check book is exists
+                if (books.stream().anyMatch(book -> book.id == choicedBook)) {
+                    int i = searchStudentNim(authenticatedStudentNIM);
+                    students.get(i).addBorrowedBooks(books.get(choicedBook - 1));
+                } else {
+                    System.out.printf("Book with id: %d does not exists!", choicedBook);
+                }
+            }
+        } else if (choice == 3) {
+            authenticatedStudentNIM = 0;
+            return;
         }
 
         menuStudent();
+    }
+
+    /**
+     * Search for a student by their NIM.
+     *
+     * @param nim the NIM to search for
+     * @return the index of the student with the given NIM, or -1 if not found
+     */
+    private static int searchStudentNim(long nim) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).nim == nim) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -168,6 +214,7 @@ public class Main {
                     long nim = inputNim();
                     if (nim > 0) {
                         if (checkNim(nim)) {
+                            authenticatedStudentNIM = nim;
                             menuStudent();
                         } else {
                             System.out.println("NIM is not registered officially in our service");
