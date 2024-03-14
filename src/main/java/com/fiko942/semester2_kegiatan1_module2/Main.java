@@ -77,14 +77,39 @@ public class Main {
         menuAdmin();
     }
 
+    /**
+     * adminLogin function for handling admin login process.
+     *
+     * @return true if the admin login is successful, false otherwise
+     */
+    @SuppressWarnings("resource")
+    private static boolean adminLogin() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Username: ");
+        String username = scanner.nextLine();
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+        if (username.equals(Admin.username) && password.equals(Admin.password)) {
+            return true;
+        } else {
+            System.out.print("Login failed are you sure to try again? (y/n): ");
+            return scanner.nextLine().toLowerCase().equals("y") ? adminLogin() : false;
+        }
+
+    }
+
     public static void main(String[] args) {
         initBook();
         while (true) {
             int mainMenuChoiced = Menu();
             switch (mainMenuChoiced) {
                 case 1:
-                    menuAdmin();
+                    if (adminLogin()) {
+                        menuAdmin();
+                    }
                     break;
+                // case 2:
+                // menuStudent();
             }
         }
     }

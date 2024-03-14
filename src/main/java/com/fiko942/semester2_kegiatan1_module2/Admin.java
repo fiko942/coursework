@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 public class Admin {
 
+    public static String username = "admin";
+    public static String password = "admin123";
+
     /**
      * Display information of students including name, nim, program of study, and
      * faculty.
