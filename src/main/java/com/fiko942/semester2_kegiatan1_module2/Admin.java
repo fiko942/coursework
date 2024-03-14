@@ -5,30 +5,30 @@ import java.util.Scanner;
 
 public class Admin {
 
-
     /**
-     * Display information of students including name, nim, program of study, and faculty.
+     * Display information of students including name, nim, program of study, and
+     * faculty.
      *
-     * @param  students   ArrayList of Student objects to display
-     * @return            void
+     * @param students ArrayList of Student objects to display
+     * @return void
      */
     public static void displayStudents(ArrayList<Student> students) {
         students.forEach(student -> {
             System.out.printf("%s | %d | %s | %s\n",
-                        student.name,
-                        student.nim,
-                        student.programStudy,
-                        student.faculty
-                    );
+                    student.name,
+                    student.nim,
+                    student.programStudy,
+                    student.faculty);
         });
     }
 
     /**
      * Add a new student to the memory.
      *
-     * @param  memory  an ArrayList of Student objects
-     * @return         void
+     * @param memory an ArrayList of Student objects
+     * @return void
      */
+    @SuppressWarnings("resource")
     public static void addStudent(ArrayList<Student> memory) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Name: ");
@@ -39,7 +39,7 @@ public class Admin {
         long nim = scanner.nextLong();
 
         // Validate nim
-        while(Long.toString(nim).length() != 15) {
+        while (Long.toString(nim).length() != 15) {
             System.out.println("Invalid NIM!!!");
             System.out.print("NIM: ");
             nim = scanner.nextLong();

@@ -1,13 +1,10 @@
 package com.fiko942.semester2_kegiatan1_module2;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static Admin admin = new Admin();
     private static ArrayList<Book> books = new ArrayList<>();
     private static ArrayList<Student> students = new ArrayList<Student>();
 
@@ -21,15 +18,16 @@ public class Main {
         books.add(new Book(3, 3, "Wiji Fiko Teren", "Tak bukan bukan"));
     }
 
-
     /**
-     * Menu function that displays the library system menu, takes user input, and returns the chosen option.
+     * Menu function that displays the library system menu, takes user input, and
+     * returns the chosen option.
      *
-     * @return         	the user's choice as an integer
+     * @return the user's choice as an integer
      */
+    @SuppressWarnings("resource")
     private static int Menu() {
         System.out.println("=== Library System ===");
-        ArrayList<String> menus = new ArrayList<>(List.of(new String[]{
+        ArrayList<String> menus = new ArrayList<>(List.of(new String[] {
                 "Login as Admin",
                 "Login as Student",
                 "Exit"
@@ -41,7 +39,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Choose option (1-3): ");
         int choice = scanner.nextInt();
-        if(choice == 3) {
+        if (choice == 3) {
             System.exit(0);
             return -1;
         } else {
@@ -50,40 +48,40 @@ public class Main {
     }
 
     /**
-     * A method to display the admin menu options, prompt the user for a choice, and handle the choice accordingly.
+     * A method to display the admin menu options, prompt the user for a choice, and
+     * handle the choice accordingly.
      *
-     * @return             No return value
+     * @return No return value
      */
     private static void menuAdmin() {
-        ArrayList<String> menus = new ArrayList<>(List.of(new String[]{
-            "Add Student",
-            "Display Registered Students",
-            "Logout"
+        ArrayList<String> menus = new ArrayList<>(List.of(new String[] {
+                "Add Student",
+                "Display Registered Students",
+                "Logout"
         }));
         menus.forEach(menu -> {
             int i = menus.indexOf(menu) + 1;
             System.out.printf("%d. %s\n", i, menu);
         });
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Choose option (1-3): ");
-        int choice = scanner.nextInt();
-        if (choice == 1) { // Add students
-            admin.addStudent(students);
-        } else if(choice == 2) { // Display students
-            admin.displayStudents(students);
-        } else if(choice == 3) { // Logout
-            return;
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Choose option (1-3): ");
+            int choice = scanner.nextInt();
+            if (choice == 1) { // Add students
+                Admin.addStudent(students);
+            } else if (choice == 2) { // Display students
+                Admin.displayStudents(students);
+            } else if (choice == 3) { // Logout
+                return;
+            }
         }
-
-
         menuAdmin();
     }
 
     public static void main(String[] args) {
         initBook();
-        while(true) {
+        while (true) {
             int mainMenuChoiced = Menu();
-            switch(mainMenuChoiced) {
+            switch (mainMenuChoiced) {
                 case 1:
                     menuAdmin();
                     break;
