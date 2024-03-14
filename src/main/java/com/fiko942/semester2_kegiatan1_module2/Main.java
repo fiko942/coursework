@@ -67,9 +67,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Choose option (1-3): ");
         int choice = scanner.nextInt();
-        if (choice == 1) {
-            // Add student
+        if (choice == 1) { // Add students
             admin.addStudent(students);
+        } else if(choice == 2) { // Display students
+            admin.displayStudents(students);
+        } else if(choice == 3) { // Logout
+            return;
         }
 
 

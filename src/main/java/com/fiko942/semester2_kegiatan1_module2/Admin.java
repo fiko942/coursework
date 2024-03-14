@@ -5,6 +5,24 @@ import java.util.Scanner;
 
 public class Admin {
 
+
+    /**
+     * Display information of students including name, nim, program of study, and faculty.
+     *
+     * @param  students   ArrayList of Student objects to display
+     * @return            void
+     */
+    public static void displayStudents(ArrayList<Student> students) {
+        students.forEach(student -> {
+            System.out.printf("%s | %d | %s | %s\n",
+                        student.name,
+                        student.nim,
+                        student.programStudy,
+                        student.faculty
+                    );
+        });
+    }
+
     /**
      * Add a new student to the memory.
      *
