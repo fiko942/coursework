@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static Student student = new Student();
     private static Admin admin = new Admin();
     private static ArrayList<Book> books = new ArrayList<>();
+    private static ArrayList<Student> students = new ArrayList<Student>();
 
     /**
      * Initializes the list of books with predefined book entries.
@@ -69,8 +69,11 @@ public class Main {
         int choice = scanner.nextInt();
         if (choice == 1) {
             // Add student
-
+            admin.addStudent(students);
         }
+
+
+        menuAdmin();
     }
 
     public static void main(String[] args) {
