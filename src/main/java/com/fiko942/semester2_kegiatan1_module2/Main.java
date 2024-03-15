@@ -56,6 +56,7 @@ public class Main {
      */
     @SuppressWarnings("resource")
     private static void menuAdmin() {
+        System.out.println("=== Admin Menu ===");
         ArrayList<String> menus = new ArrayList<>(List.of(new String[] {
                 "Add Student",
                 "Display Registered Students",
