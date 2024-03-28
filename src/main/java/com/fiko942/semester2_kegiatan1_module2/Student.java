@@ -9,6 +9,7 @@ public class Student {
     String programStudy;
     long nim;
 
+    // Constructor
     public Student(String name, long nim, String faculty, String programStudy) {
         this.name = name;
         this.faculty = faculty;
