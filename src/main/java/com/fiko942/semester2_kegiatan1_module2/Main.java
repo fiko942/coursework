@@ -14,9 +14,9 @@ public class Main {
      *
      */
     private static void initBook() {
-        books.add(new Book(1, 1, "Wiji Fiko Teren", "Sang Pemimpi"));
-        books.add(new Book(2, 2, "Wiji Fiko Teren", "Samlekommm"));
-        books.add(new Book(3, 3, "Wiji Fiko Teren", "Tak bukan bukan"));
+        books.add(new Book(1, 1, "Wiji Fiko Teren", "Sang Pemimpi", 0));
+        books.add(new Book(2, 2, "Wiji Fiko Teren", "Samlekommm", 0));
+        books.add(new Book(3, 3, "Wiji Fiko Teren", "Tak bukan bukan", 0));
     }
 
     /**
@@ -172,7 +172,6 @@ public class Main {
             authenticatedStudentNIM = 0;
             return;
         }
-
         menuStudent();
     }
 
