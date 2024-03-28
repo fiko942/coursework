@@ -6,13 +6,16 @@ public class Book {
     String author;
     String title;
     public int borrowedForDays;
+    String category;
 
-    public Book(int id, int stock, String author, String title, int borrowedForDays) {
+    // Constructor
+    public Book(int id, int stock, String author, String title, int borrowedForDays, String category) {
         this.id = id;
         this.stock = stock;
         this.author = author;
         this.title = title;
         this.borrowedForDays = borrowedForDays;
+        this.category = category;
     }
 
 }

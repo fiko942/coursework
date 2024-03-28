@@ -14,9 +14,9 @@ public class Main {
      *
      */
     private static void initBook() {
-        books.add(new Book(1, 1, "Wiji Fiko Teren", "Sang Pemimpi", 0));
-        books.add(new Book(2, 2, "Wiji Fiko Teren", "Samlekommm", 0));
-        books.add(new Book(3, 3, "Wiji Fiko Teren", "Tak bukan bukan", 0));
+        books.add(new Book(1, 1, "Wiji Fiko Teren", "Sang Pemimpi", 0, "Horor"));
+        books.add(new Book(2, 2, "Wiji Fiko Teren", "Samlekommm", 0, "Drama"));
+        books.add(new Book(3, 3, "Wiji Fiko Teren", "Tak bukan bukan", 0, "Romance"));
     }
 
     /**
@@ -162,8 +162,8 @@ public class Main {
             System.out.println("List of available books:");
 
             books.forEach(book -> {
-                System.out.printf("%d. %s | %s | %s\n", book.id, book.title, book.author,
-                        Integer.toString(book.stock));
+                System.out.printf("%d. %s | %s | %s | %s\n", book.id, book.title, book.author,
+                        Integer.toString(book.stock), book.category);
             });
             System.out.print("Enter book id to borrow (enter 99 for cancel): ");
             int choicedBook = scanner.nextInt();
@@ -178,6 +178,12 @@ public class Main {
                 }
             }
         } else if (choice == 4) {
+            int i = searchStudentNim(authenticatedStudentNIM);
+            System.out.println(i);
+            ArrayList<Integer> bookIds = students.get(i).logout();
+            bookIds.forEach(bookId -> {
+                setBookStock(bookId, books.get(bookId - 1).stock + 1); // + 1 of the stock
+            });
             authenticatedStudentNIM = 0;
             return;
         } else if (choice == 3) {

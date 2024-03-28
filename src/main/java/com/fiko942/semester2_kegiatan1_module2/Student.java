@@ -19,19 +19,24 @@ public class Student {
     // Books borrowed
     private static ArrayList<Book> books = new ArrayList<Book>();
 
-    public static boolean logout() {
+    public static ArrayList<Integer> logout() {
         if (books.size() == 0) {
-            return true;
+            return new ArrayList<Integer>();
         }
         // Listen to confirm
         System.out.print("Apakah anda ingin membatalkan pinjaman (y/n): ");
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
-        if (choice.toLowerCase() == "y") {
-            books.clear();
+        if (choice.toLowerCase().trim().toString() == "y") {
+            System.out.println("Menghapus seluruh data buku pinjaman");
+            ArrayList<Integer> ids = new ArrayList<Integer>();
+            books.forEach(book -> {
+                ids.add(book.id);
+                books.remove(books.indexOf(book));
+            });
+            return ids;
         }
-        scanner.close();
-        return true;
+        return new ArrayList<Integer>();
     }
 
     /**
@@ -46,7 +51,8 @@ public class Student {
             return;
         }
         books.forEach(book -> {
-            System.out.printf("%d | %s | %s\n", book.id, book.title, book.author);
+            System.out.printf("%d. %s | %s | %s | %s\n", book.id, book.title, book.author,
+                    Integer.toString(book.stock), book.category);
         });
     }
 
@@ -69,7 +75,8 @@ public class Student {
      */
     public static void displayBorrowedBooks() {
         books.forEach(book -> {
-            System.out.printf("%d | %s | %s | %d Hari\n", book.id, book.title, book.author, book.borrowedForDays);
+            System.out.printf("%d. %s | %s | %s | %s\n", book.id, book.title, book.author,
+                    Integer.toString(book.stock), book.category);
         });
     }
 
