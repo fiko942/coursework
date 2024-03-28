@@ -8,6 +8,13 @@ public class Student {
     String programStudy;
     long nim;
 
+    public Student(String name, long nim, String faculty, String programStudy) {
+        this.name = name;
+        this.faculty = faculty;
+        this.nim = nim;
+        this.programStudy = programStudy;
+    }
+
     private static ArrayList<Book> books = new ArrayList<Book>();
 
     public static void logout() {

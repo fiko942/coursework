@@ -52,11 +52,7 @@ public class Admin {
         scanner = new Scanner(System.in);
         String program = scanner.nextLine();
 
-        Student student = new Student();
-        student.name = name;
-        student.nim = nim;
-        student.programStudy = program;
-        student.faculty = faculty;
+        Student student = new Student(name, nim, faculty, program);
 
         memory.add(student);
 
