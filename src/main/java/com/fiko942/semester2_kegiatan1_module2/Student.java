@@ -20,9 +20,9 @@ public class Student {
     private static ArrayList<Book> books = new ArrayList<Book>();
 
     public static boolean logout() {
-        // if (books.size() == 0) {
-        // return true;
-        // }
+        if (books.size() == 0) {
+            return true;
+        }
         // Listen to confirm
         System.out.print("Apakah anda ingin membatalkan pinjaman (y/n): ");
         Scanner scanner = new Scanner(System.in);
@@ -67,10 +67,45 @@ public class Student {
     /**
      * Display the list of borrowed books with their id, title, and author.
      */
-    public void displayBorrowedBooks() {
+    public static void displayBorrowedBooks() {
         books.forEach(book -> {
             System.out.printf("%d | %s | %s | %d Hari\n", book.id, book.title, book.author, book.borrowedForDays);
         });
+    }
+
+    /**
+     * Returns the index of the book with the given ID in the books list.
+     *
+     * @param id the ID of the book to search for
+     * @return the index of the book if found, -1 otherwise
+     */
+    private static int getBookIndex(int id) {
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).id == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Returns the ID of a book that has been returned by the user.
+     *
+     * @return the ID of the book that has been returned
+     */
+    public static int returnBook() {
+        displayBorrowedBooks();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Masukkan id buku untuk dikembalikan: ");
+        int idBook = scanner.nextInt();
+        int i = getBookIndex(idBook);
+        if (i >= 0) {
+            books.remove(i);
+            System.out.println("Buku dikembalikan!");
+        }
+        System.err.println("Daftar buku yang anda pinjam: ");
+        displayBorrowedBooks();
+        return idBook;
     }
 
     /**
@@ -78,7 +113,7 @@ public class Student {
      *
      * @param _book description of parameter
      */
-    public static void addBorrowedBooks(Book _book) {
+    public static int addBorrowedBooks(Book _book) {
         System.out.print("Berapa hari anda ingin meminjam buku? (number): ");
         Scanner scanner = new Scanner(System.in);
         int days = scanner.nextInt();
@@ -86,5 +121,6 @@ public class Student {
             _book.borrowedForDays = days;
             books.add(_book);
         }
+        return _book.id;
     }
 }

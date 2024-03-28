@@ -120,6 +120,14 @@ public class Main {
         }
     }
 
+    private static void setBookStock(int id, int stock) {
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).id == id) {
+                books.get(i).stock = stock;
+            }
+        }
+    }
+
     /**
      * A method that displays a menu for the student to interact with,
      * including options to view borrowed books, borrow a book, or logout.
@@ -132,7 +140,7 @@ public class Main {
         int studentI = searchStudentNim(authenticatedStudentNIM);
         System.out.printf("=== Student Menu (%s) ===\n", students.get(studentI).name);
         ArrayList<String> menus = new ArrayList<String>(
-                List.of("Borrowed Book", "Borrow a Book", "Logout"));
+                List.of("Borrowed Book", "Borrow a Book", "Return a book", "Logout"));
         menus.forEach(menu -> {
             int i = menus.indexOf(menu) + 1;
             System.out.printf("%d. %s\n", i, menu);
@@ -157,20 +165,26 @@ public class Main {
                 System.out.printf("%d. %s | %s | %s\n", book.id, book.title, book.author,
                         Integer.toString(book.stock));
             });
-            System.out.println("Enter book id to borrow (enter 99 for cancel):");
+            System.out.print("Enter book id to borrow (enter 99 for cancel): ");
             int choicedBook = scanner.nextInt();
             if (choicedBook != 99) {
                 // Check book is exists
                 if (books.stream().anyMatch(book -> book.id == choicedBook)) {
                     int i = searchStudentNim(authenticatedStudentNIM);
-                    students.get(i).addBorrowedBooks(books.get(choicedBook - 1));
+                    int bookId = students.get(i).addBorrowedBooks(books.get(choicedBook - 1));
+                    setBookStock(bookId, books.get(choicedBook - 1).stock - 1); // - 1 of stock
                 } else {
                     System.out.printf("Book with id: %d does not exists!", choicedBook);
                 }
             }
-        } else if (choice == 3) {
+        } else if (choice == 4) {
             authenticatedStudentNIM = 0;
             return;
+        } else if (choice == 3) {
+            // Return the book
+            int i = searchStudentNim(authenticatedStudentNIM);
+            int bookId = students.get(i).returnBook();
+            setBookStock(bookId, books.get(bookId - 1).stock + 1); // + 1 of stock
         }
         menuStudent();
     }
